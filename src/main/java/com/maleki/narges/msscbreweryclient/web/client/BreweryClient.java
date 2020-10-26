@@ -1,6 +1,7 @@
 package com.maleki.narges.msscbreweryclient.web.client;
 
 import com.maleki.narges.msscbreweryclient.web.model.BeerDto;
+import com.maleki.narges.msscbreweryclient.web.model.CustomerDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -26,6 +27,8 @@ public class BreweryClient {
     private final RestTemplate restTemplate;
     private String apiHost;
     public final String BEER_PATH_V1 = "/api/v1/beer/";
+    private final String CUSTOMER_PATH_V1 = "/api/v1/customer/";
+
 
     public void setApiHost(String apiHost) {
         this.apiHost = apiHost;
@@ -65,5 +68,27 @@ public class BreweryClient {
     public void updateBeer(UUID beerId, BeerDto beerDto){
         String url = apiHost + BEER_PATH_V1 + beerId ;
         restTemplate.put(url,beerDto);
+    }
+
+    public CustomerDto getCustomerById(UUID customerId){
+        String url = apiHost + CUSTOMER_PATH_V1 + customerId.toString();
+        return restTemplate.getForObject(url, CustomerDto.class);
+    }
+
+    public CustomerDto saveNewCustomer( CustomerDto customerDto){
+        String url = apiHost + CUSTOMER_PATH_V1 ;
+        ResponseEntity entity =  restTemplate.postForEntity(url,customerDto,CustomerDto.class);
+        return (CustomerDto) entity.getBody();
+    }
+
+    public void updateCustomer(UUID customerId, CustomerDto customerDto){
+        String url = apiHost + CUSTOMER_PATH_V1 + customerId ;
+        restTemplate.put(url,customerDto);
+
+    }
+
+    public void deleteCustomer(UUID customerId){
+        String url = apiHost + CUSTOMER_PATH_V1 + customerId ;
+        restTemplate.delete(url);
     }
 }

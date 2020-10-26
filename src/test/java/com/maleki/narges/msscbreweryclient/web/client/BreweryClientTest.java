@@ -1,6 +1,7 @@
 package com.maleki.narges.msscbreweryclient.web.client;
 
 import com.maleki.narges.msscbreweryclient.web.model.BeerDto;
+import com.maleki.narges.msscbreweryclient.web.model.CustomerDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,29 @@ class BreweryClientTest {
     void deleteBeer() {
         breweryClient.deleteBeer(UUID.randomUUID());
     }
+
+
+    @Test
+    void getCustomerById() {
+        CustomerDto customerDto =  breweryClient.getCustomerById(UUID.randomUUID());
+        assertNotNull(customerDto);
+    }
+
+    @Test
+    void saveNewCustomer() {
+
+        CustomerDto customerDto =  breweryClient.saveNewCustomer(CustomerDto.builder().id(UUID.randomUUID()).build());
+        assertNotNull(customerDto);
+    }
+
+    @Test
+    void updateCustomer() {
+        breweryClient.updateCustomer(UUID.randomUUID(),CustomerDto.builder().build());
+    }
+
+    @Test
+    void deleteCustomer() {
+        breweryClient.deleteCustomer(UUID.randomUUID());
+    }
+
 }
