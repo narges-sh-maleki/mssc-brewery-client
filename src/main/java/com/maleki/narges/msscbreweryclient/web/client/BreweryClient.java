@@ -44,7 +44,7 @@ public class BreweryClient {
     public BeerDto getBeerbyId(UUID beerId){
 
         String url = apiHost + BEER_PATH_V1  + beerId.toString();
-        log.debug("**********"+ url);
+        //log.debug("**********"+ url);
         return restTemplate.getForObject(url,BeerDto.class);
 
     }
@@ -59,7 +59,7 @@ public class BreweryClient {
     public URI saveNewBeer(BeerDto beerDto){
 
         String url = apiHost + BEER_PATH_V1  ;
-        log.debug("**********"+ url);
+       // log.debug("**********"+ url);
         return restTemplate.postForLocation(url,beerDto);
 
 
